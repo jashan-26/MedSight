@@ -1,0 +1,452 @@
+/* ==========================================================================
+   PACS AI RADIOLOGY WEB WORKSTATION - NAVY BLUE & CREAM CLINICAL THEME
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* Deep Navy Blue Palette */
+    --navy-dark: #070D1E;
+    --navy-bg: #0A1128;
+    --navy-card: #131E3A;
+    --navy-card-hover: #1A284C;
+    --navy-surface: #1E2D50;
+    --navy-border: #2E436E;
+    --navy-accent: #2563EB;
+    --navy-glow: rgba(37, 99, 235, 0.25);
+
+    /* Warm Cream & Ivory Palette */
+    --cream-canvas: #FAF6EE;
+    --cream-primary: #FDFBF7;
+    --cream-secondary: #F5EFE6;
+    --cream-gold: #EADBC8;
+    --cream-gold-bright: #F7E9D7;
+    --cream-muted: #C0C9DB;
+    --cream-subtext: #94A3B8;
+    --cream-border: rgba(234, 219, 200, 0.25);
+    
+    /* Risk Triage Status Colors */
+    --risk-low-bg: rgba(34, 197, 94, 0.15);
+    --risk-low-border: #22C55E;
+    --risk-low-text: #4ADE80;
+    
+    --risk-mod-bg: rgba(245, 158, 11, 0.15);
+    --risk-mod-border: #F59E0B;
+    --risk-mod-text: #FBBF24;
+    
+    --risk-high-bg: rgba(239, 68, 68, 0.18);
+    --risk-high-border: #EF4444;
+    --risk-high-text: #F87171;
+
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--navy-bg);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(30, 45, 80, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(19, 30, 58, 0.6) 0%, transparent 50%);
+    color: var(--cream-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Top Navbar Banner */
+.navbar {
+    background: linear-gradient(135deg, #070D1E 0%, #131E3A 60%, #1E2D50 100%);
+    border: 1px solid var(--cream-border);
+    border-top: 3px solid var(--cream-gold);
+    border-radius: 16px;
+    padding: 20px 30px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand-icon {
+    font-size: 2.2rem;
+    background: rgba(234, 219, 200, 0.1);
+    border: 1px solid var(--cream-gold);
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-text h1 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cream-primary);
+}
+
+.brand-text h1 span {
+    color: var(--cream-gold);
+}
+
+.brand-text p {
+    font-size: 0.9rem;
+    color: var(--cream-subtext);
+}
+
+.pacs-badge {
+    background: rgba(7, 13, 30, 0.8);
+    border: 1px solid var(--cream-gold);
+    color: var(--cream-gold-bright);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #22C55E;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #22C55E;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* Clinical Disclaimer */
+.disclaimer-banner {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.12) 0%, rgba(19, 30, 58, 0.6) 100%);
+    border-left: 4px solid var(--risk-high-border);
+    border-top: 1px solid rgba(239, 68, 68, 0.2);
+    border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+    border-right: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: #FECACA;
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+}
+
+/* Layout Grid */
+.main-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 992px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Sidebar Controls Card */
+.sidebar-panel {
+    background: var(--navy-card);
+    border: 1px solid var(--cream-border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.panel-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--cream-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--navy-border);
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cream-secondary);
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--navy-dark);
+    border: 1px solid var(--navy-border);
+    border-radius: 8px;
+    color: var(--cream-primary);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--cream-gold);
+}
+
+/* Range Slider */
+.slider-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider-val {
+    font-family: var(--font-mono);
+    color: var(--cream-gold);
+    font-weight: 600;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--cream-gold);
+}
+
+/* File Upload Dropzone */
+.dropzone {
+    background: var(--navy-dark);
+    border: 2px dashed var(--cream-gold);
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-bottom: 18px;
+}
+
+.dropzone:hover {
+    background: var(--navy-card-hover);
+    border-color: var(--cream-primary);
+}
+
+.dropzone-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.dropzone p {
+    font-size: 0.9rem;
+    color: var(--cream-secondary);
+}
+
+.dropzone span {
+    font-size: 0.78rem;
+    color: var(--cream-subtext);
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, #1E2D50 0%, #131E3A 100%);
+    color: var(--cream-gold);
+    border: 1px solid var(--cream-gold);
+    border-radius: 10px;
+    padding: 12px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--cream-gold) 0%, #D4AF37 100%);
+    color: var(--navy-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(234, 219, 200, 0.3);
+}
+
+.btn-download {
+    background: linear-gradient(135deg, #EADBC8 0%, #C5A880 100%);
+    color: var(--navy-dark);
+    border: 1px solid var(--cream-primary);
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+}
+
+.btn-download:hover {
+    background: linear-gradient(135deg, #FDFBF7 0%, #EADBC8 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(234, 219, 200, 0.4);
+}
+
+/* Diagnostic KPI Cards Grid */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.kpi-card {
+    background: var(--navy-card);
+    border: 1px solid var(--cream-border);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: all 0.25s ease;
+}
+
+.kpi-card:hover {
+    border-color: var(--cream-gold);
+    transform: translateY(-2px);
+}
+
+.kpi-label {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cream-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.kpi-value {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cream-primary);
+}
+
+.kpi-sub {
+    font-size: 0.8rem;
+    color: var(--cream-subtext);
+    margin-top: 4px;
+}
+
+/* Risk Badges */
+.risk-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.risk-LOW {
+    background: var(--risk-low-bg);
+    color: var(--risk-low-text);
+    border: 1px solid var(--risk-low-border);
+}
+
+.risk-MODERATE {
+    background: var(--risk-mod-bg);
+    color: var(--risk-mod-text);
+    border: 1px solid var(--risk-mod-border);
+}
+
+.risk-HIGH {
+    background: var(--risk-high-bg);
+    color: var(--risk-high-text);
+    border: 1px solid var(--risk-high-border);
+}
+
+/* Main Content Display */
+.content-panel {
+    background: var(--navy-card);
+    border: 1px solid var(--cream-border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Image Visualizer Grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.image-card {
+    background: var(--navy-dark);
+    border: 1px solid var(--navy-border);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+}
+
+.image-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--navy-border);
+}
+
+.image-card p {
+    font-size: 0.85rem;
+    color: var(--cream-secondary);
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+/* Spinner Overlay */
+.spinner-container {
+    display: none;
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    border: 4px solid var(--navy-border);
+    border-top: 4px solid var(--cream-gold);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

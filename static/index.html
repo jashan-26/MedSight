@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PACS AI Radiology Screening Portal • Navy Blue & Cream</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- TOP NAVBAR BANNER -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="brand-icon">🩺</div>
+                <div class="brand-text">
+                    <h1>PACS AI <span>Radiology Triage</span></h1>
+                    <p>Multi-Label Radiographic Screening & Grad-CAM Decision Support System</p>
+                </div>
+            </div>
+            <div class="pacs-badge">
+                <span class="pulse-dot"></span>
+                PACS NODE-01 • AI ONLINE
+            </div>
+        </header>
+
+        <!-- CLINICAL DISCLAIMER BANNER -->
+        <div class="disclaimer-banner">
+            <strong>⚠️ CLINICAL TRIAGE NOTICE:</strong> This AI decision-support workstation is intended for research, screening, and emergency triage prioritization only. It does NOT provide diagnostic certification or replace physician evaluation.
+        </div>
+
+        <!-- MAIN LAYOUT GRID -->
+        <div class="main-grid">
+            <!-- SIDEBAR CONTROL PANEL -->
+            <aside class="sidebar-panel">
+                <h2 class="panel-title">⚙️ Screening Controls</h2>
+
+                <!-- FILE UPLOAD DROPZONE -->
+                <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+                    <div class="dropzone-icon">📁</div>
+                    <p><strong>Click or Drag X-Ray Here</strong></p>
+                    <span id="fileNameDisplay">PNG, JPG, or JPEG formats</span>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                </div>
+
+                <!-- PRELOADED SAMPLE SELECTOR -->
+                <div class="form-group">
+                    <label for="sampleSelect">Or Select Pre-Loaded Sample:</label>
+                    <select id="sampleSelect" class="form-control" onchange="handleSampleSelect(event)">
+                        <option value="None">-- Select Sample X-Ray --</option>
+                    </select>
+                </div>
+
+                <!-- MODEL ARCHITECTURE SELECTOR -->
+                <div class="form-group">
+                    <label for="modelSelect">Backbone Deep Network:</label>
+                    <select id="modelSelect" class="form-control">
+                        <option value="EfficientNet-B0">EfficientNet-B0 (5.3M Params)</option>
+                        <option value="ResNet-50">ResNet-50 (25.6M Params)</option>
+                    </select>
+                </div>
+
+                <!-- PREPROCESSING OPTIONS -->
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="autoCropCheck" checked> Crop Dark ROI Margins
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="claheCheck"> CLAHE Contrast Enhancement
+                    </label>
+                </div>
+
+                <!-- HEATMAP COLORMAP SELECTOR -->
+                <div class="form-group">
+                    <label for="colormapSelect">Grad-CAM Colormap:</label>
+                    <select id="colormapSelect" class="form-control">
+                        <option value="JET">JET (Clinical Standard)</option>
+                        <option value="VIRIDIS">VIRIDIS</option>
+                        <option value="TURBO">TURBO</option>
+                        <option value="INFERNO">INFERNO</option>
+                    </select>
+                </div>
+
+                <!-- OVERLAY OPACITY SLIDER -->
+                <div class="form-group">
+                    <div class="slider-group">
+                        <label for="alphaSlider">Heatmap Overlay Blend:</label>
+                        <span id="alphaVal" class="slider-val">0.5</span>
+                    </div>
+                    <input type="range" id="alphaSlider" min="0.1" max="0.9" step="0.05" value="0.5" oninput="document.getElementById('alphaVal').innerText = this.value">
+                </div>
+
+                <button class="btn-primary" onclick="runInference()">🚀 Run AI PACS Screening</button>
+            </aside>
+
+            <!-- MAIN WORKSTATION RESULTS -->
+            <main>
+                <!-- LOADING SPINNER -->
+                <div id="loadingSpinner" class="spinner-container">
+                    <div class="spinner"></div>
+                    <p style="color: var(--cream-gold); font-weight: 600;">Executing PyTorch inference & Grad-CAM hooks...</p>
+                </div>
+
+                <!-- INITIAL PLACEHOLDER -->
+                <div id="placeholderView" class="content-panel" style="text-align: center; padding: 60px 20px;">
+                    <div style="font-size: 3.5rem; margin-bottom: 12px;">🩺</div>
+                    <h2 style="color: var(--cream-gold); font-family: var(--font-heading); margin-bottom: 8px;">PACS Radiograph Ready for Analysis</h2>
+                    <p style="color: var(--cream-subtext);">Upload a patient Chest X-ray or pick a pre-loaded sample scan from the controls on the left to start screening.</p>
+                </div>
+
+                <!-- RESULTS VIEW (HIDDEN INITIALLY) -->
+                <div id="resultsView" style="display: none;">
+                    <!-- KPI SUMMARY GRID -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Primary Finding</div>
+                            <div class="kpi-value" id="resPrimary" style="color: var(--cream-gold);">Normal</div>
+                            <div class="kpi-sub">Multi-Label Classification</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-label">Confidence</div>
+                            <div class="kpi-value" id="resConfidence" style="color: #38BDF8;">94.2%</div>
+                            <div class="kpi-sub" id="resRating">Calibrated Rating: High</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-label">Triage Priority</div>
+                            <div style="margin-top: 6px;" id="resRiskBadge">
+                                <span class="risk-badge risk-LOW">LOW RISK</span>
+                            </div>
+                            <div class="kpi-sub">Emergency Queue</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-label">Deep Backbone</div>
+                            <div class="kpi-value" id="resModel" style="font-size: 1.3rem;">EfficientNet-B0</div>
+                            <div class="kpi-sub">PyTorch Engine</div>
+                        </div>
+                    </div>
+
+                    <!-- PATHOLOGY BREAKDOWN CHART & GRAD-CAM -->
+                    <div class="content-panel">
+                        <h2 class="panel-title">📊 Multi-Label Pathology Breakdown</h2>
+                        <div style="height: 260px; position: relative;">
+                            <canvas id="probChart"></canvas>
+                        </div>
+                        <p style="margin-top: 15px; font-size: 0.9rem;">
+                            <strong>🔍 Anatomical Attention:</strong> <span id="resAnatomy" style="color: var(--cream-gold);">Clear lung fields</span>
+                        </p>
+                    </div>
+
+                    <!-- GRAD-CAM EXPLAINABILITY VISUALIZER -->
+                    <div class="content-panel">
+                        <h2 class="panel-title">🔴 Explainable AI (Grad-CAM Activation Maps)</h2>
+                        <div class="image-grid">
+                            <div class="image-card">
+                                <img id="imgPreprocessed" src="" alt="Preprocessed Scan">
+                                <p>Preprocessed Radiograph</p>
+                            </div>
+                            <div class="image-card">
+                                <img id="imgHeatmap" src="" alt="Grad-CAM Heatmap">
+                                <p>Grad-CAM Activation</p>
+                            </div>
+                            <div class="image-card">
+                                <img id="imgOverlay" src="" alt="Attention Overlay">
+                                <p>Fused Attention Overlay</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOWNLOAD PDF REPORT CARD -->
+                    <div class="content-panel" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h3 style="color: var(--cream-gold); font-family: var(--font-heading); margin-bottom: 4px;">📄 Patient PDF Screening Report</h3>
+                            <p style="color: var(--cream-subtext); font-size: 0.88rem;">Download complete publication-grade PDF report with side-by-side heatmaps, probabilities, and disclaimers.</p>
+                        </div>
+                        <button class="btn-download" onclick="downloadReport()">Download Report PDF</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

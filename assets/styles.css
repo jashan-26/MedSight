@@ -1,0 +1,441 @@
+/* ==========================================================================
+   MEDICAL PACS AI RADIOLOGY WORKSTATION - NAVY BLUE & CREAM DESIGN SYSTEM
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* Navy Blue Palette */
+    --navy-dark: #070D1E;
+    --navy-bg: #0A1128;
+    --navy-card: #131E3A;
+    --navy-card-hover: #1A284C;
+    --navy-surface: #1E2D50;
+    --navy-border: #2E436E;
+    --navy-border-light: rgba(46, 67, 110, 0.6);
+    --navy-accent: #2563EB;
+    --navy-accent-glow: rgba(37, 99, 235, 0.3);
+
+    /* Warm Cream & Ivory Palette */
+    --cream-canvas: #FAF6EE;
+    --cream-primary: #FDFBF7;
+    --cream-secondary: #F5EFE6;
+    --cream-gold: #EADBC8;
+    --cream-gold-bright: #F7E9D7;
+    --cream-muted: #C0C9DB;
+    --cream-subtext: #94A3B8;
+    --cream-border: rgba(234, 219, 200, 0.25);
+    --cream-border-solid: #EADBC8;
+    
+    /* Functional Status Triage Colors */
+    --risk-low-bg: rgba(34, 197, 94, 0.15);
+    --risk-low-border: #22C55E;
+    --risk-low-text: #4ADE80;
+    
+    --risk-mod-bg: rgba(245, 158, 11, 0.15);
+    --risk-mod-border: #F59E0B;
+    --risk-mod-text: #FBBF24;
+    
+    --risk-high-bg: rgba(239, 68, 68, 0.18);
+    --risk-high-border: #EF4444;
+    --risk-high-text: #F87171;
+
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base resets & Streamlit overrides */
+html, body, [class*="css"] {
+    font-family: var(--font-body);
+}
+
+.stApp {
+    background-color: var(--navy-bg) !important;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(30, 45, 80, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(19, 30, 58, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(234, 219, 200, 0.02) 0%, transparent 80%);
+    color: var(--cream-primary) !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--navy-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--navy-border);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cream-gold);
+}
+
+/* --------------------------------------------------------------------------
+   NAVBAR & HEADER BANNER (NAVY BLUE & CREAM ACCENTS)
+   -------------------------------------------------------------------------- */
+.med-header {
+    background: linear-gradient(135deg, #070D1E 0%, #131E3A 60%, #1E2D50 100%);
+    border: 1px solid var(--cream-border);
+    border-top: 3px solid var(--cream-gold);
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.med-header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(234, 219, 200, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.header-title-box h1 {
+    font-family: var(--font-heading);
+    color: var(--cream-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-title-box h1 span.highlight {
+    color: var(--cream-gold);
+    font-weight: 800;
+}
+
+.header-title-box p {
+    color: var(--cream-muted);
+    margin: 6px 0 0 0;
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+.header-badge-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pacs-status-pill {
+    background: rgba(10, 17, 40, 0.8);
+    border: 1px solid var(--cream-gold);
+    color: var(--cream-gold-bright);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot-pulse {
+    width: 8px;
+    height: 8px;
+    background-color: #22C55E;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22C55E;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   CLINICAL DISCLAIMER BANNER
+   -------------------------------------------------------------------------- */
+.disclaimer-banner {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.12) 0%, rgba(19, 30, 58, 0.6) 100%);
+    border-left: 4px solid var(--risk-high-border);
+    border-top: 1px solid rgba(239, 68, 68, 0.2);
+    border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+    border-right: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: #FECACA;
+    font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.disclaimer-banner strong {
+    color: #F87171;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* --------------------------------------------------------------------------
+   CARDS & CONTAINERS (DEEP NAVY WITH CREAM BORDERS & HIGHLIGHTS)
+   -------------------------------------------------------------------------- */
+.med-card {
+    background: var(--navy-card);
+    border: 1px solid var(--cream-border);
+    border-radius: 14px;
+    padding: 1.35rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.med-card:hover {
+    border-color: var(--cream-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), 0 0 15px rgba(234, 219, 200, 0.1);
+}
+
+.med-card-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cream-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--navy-border);
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.med-card-value {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--cream-primary);
+    margin-top: 4px;
+}
+
+.med-card-sub {
+    font-size: 0.82rem;
+    color: var(--cream-subtext);
+    margin-top: 6px;
+    font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   TRIAGE RISK PRIORITY BADGES
+   -------------------------------------------------------------------------- */
+.risk-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.risk-LOW {
+    background: var(--risk-low-bg);
+    color: var(--risk-low-text);
+    border: 1px solid var(--risk-low-border);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+}
+
+.risk-MODERATE {
+    background: var(--risk-mod-bg);
+    color: var(--risk-mod-text);
+    border: 1px solid var(--risk-mod-border);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+}
+
+.risk-HIGH {
+    background: var(--risk-high-bg);
+    color: var(--risk-high-text);
+    border: 1px solid var(--risk-high-border);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   WARNING / UNCERTAINTY CALLOUT BOX
+   -------------------------------------------------------------------------- */
+.low-confidence-box {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(19, 30, 58, 0.8) 100%);
+    border: 1px solid var(--cream-gold);
+    border-left: 4px solid #F59E0B;
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--cream-gold-bright);
+    font-weight: 500;
+    font-size: 0.92rem;
+    margin-top: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   STREAMLIT TABS STYLING (NAVY & CREAM)
+   -------------------------------------------------------------------------- */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background-color: var(--navy-dark);
+    padding: 8px;
+    border-radius: 14px;
+    border: 1px solid var(--navy-border);
+}
+
+.stTabs [data-baseweb="tab"] {
+    height: 44px;
+    white-space: pre;
+    border-radius: 10px;
+    color: var(--cream-muted) !important;
+    font-weight: 600;
+    font-size: 0.92rem;
+    font-family: var(--font-heading);
+    padding: 0 20px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--cream-gold) !important;
+    background-color: rgba(234, 219, 200, 0.05);
+}
+
+.stTabs [aria-selected="true"] {
+    background-color: var(--navy-surface) !important;
+    color: var(--cream-gold) !important;
+    border: 1px solid var(--cream-gold) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(234, 219, 200, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   STREAMLIT SIDEBAR STYLING
+   -------------------------------------------------------------------------- */
+[data-testid="stSidebar"] {
+    background-color: #070D1E !important;
+    border-right: 1px solid var(--navy-border);
+}
+
+[data-testid="stSidebar"] h3 {
+    color: var(--cream-gold) !important;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+}
+
+[data-testid="stSidebar"] .stMarkdown {
+    color: var(--cream-secondary);
+}
+
+/* Sidebar Info Cards */
+[data-testid="stSidebar"] [data-testid="stAlert"] {
+    background-color: var(--navy-card) !important;
+    border: 1px solid var(--cream-border) !important;
+    color: var(--cream-primary) !important;
+    border-radius: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   FORM CONTROLS, SELECTBOXES, SLIDERS, BUTTONS
+   -------------------------------------------------------------------------- */
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(135deg, #1E2D50 0%, #131E3A 100%) !important;
+    color: var(--cream-gold) !important;
+    border: 1px solid var(--cream-gold) !important;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    border-radius: 10px !important;
+    padding: 0.6rem 1.4rem !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, var(--cream-gold) 0%, #D4AF37 100%) !important;
+    color: var(--navy-dark) !important;
+    border-color: var(--cream-primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(234, 219, 200, 0.25) !important;
+}
+
+/* Download Buttons */
+.stDownloadButton > button {
+    background: linear-gradient(135deg, #EADBC8 0%, #C5A880 100%) !important;
+    color: #070D1E !important;
+    border: 1px solid #FAF6EE !important;
+    font-family: var(--font-heading);
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    padding: 0.7rem 1.5rem !important;
+    box-shadow: 0 4px 15px rgba(234, 219, 200, 0.2) !important;
+    transition: all 0.25s ease !important;
+}
+
+.stDownloadButton > button:hover {
+    background: linear-gradient(135deg, #FDFBF7 0%, #EADBC8 100%) !important;
+    color: #070D1E !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(234, 219, 200, 0.4) !important;
+}
+
+/* File Uploader Dropzone */
+[data-testid="stFileUploader"] {
+    background-color: var(--navy-card) !important;
+    border: 2px dashed var(--cream-border-solid) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    transition: all 0.2s ease;
+}
+
+[data-testid="stFileUploader"]:hover {
+    border-color: var(--cream-primary) !important;
+    background-color: var(--navy-card-hover) !important;
+}
+
+/* Sliders */
+.stSlider [data-baseweb="slider"] {
+    margin-top: 10px;
+}
+
+/* Tables & Dataframes */
+[data-testid="stTable"], .stDataFrame {
+    background-color: var(--navy-card) !important;
+    border: 1px solid var(--navy-border) !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+/* Image Frames in Streamlit */
+[data-testid="stImage"] img {
+    border-radius: 10px;
+    border: 1px solid var(--navy-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.2s ease;
+}
+
+[data-testid="stImage"] img:hover {
+    border-color: var(--cream-gold);
+}
