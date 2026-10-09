@@ -59,43 +59,6 @@
 - **Visualization**: Plotly, ReportLab PDF Engine.
 - **Analytics & Storage**: Pandas, NumPy.
 
----
-
-## 🚀 Quick Start & Installation
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/jashan-26/MedSight.git
-cd MedSight
-```
-
-### 2. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 💻 Running the Application
-
-MedSight provides two deployment modes:
-
-### Option A: Streamlit PACS Radiology Workstation (Recommended)
-Launch the full interactive radiology workstation powered by Streamlit:
-```bash
-python -m streamlit run app.py
-```
-*Access the workstation in your browser at `http://localhost:8501`*
-
-### Option B: Standalone FastAPI REST API & Web Portal
-Launch the lightweight FastAPI web server with REST endpoints:
-```bash
-python web_app.py
-```
-*Access the web portal at `http://localhost:8000`*
-
----
-
 ## 📁 Repository Structure
 
 ```text
