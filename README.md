@@ -4,7 +4,6 @@
 [![PyTorch 2.0](https://img.shields.io/badge/PyTorch-2.0-EE4C2C.svg?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-FF4B4B.svg?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-EADBC8.svg?style=flat)](LICENSE)
 
 **MedSight** is an AI-powered computer-aided triage and radiological decision-support workstation designed for multi-label chest radiograph screening. Featuring state-of-the-art PyTorch deep learning backbones, explainable AI (Grad-CAM heatmaps), confidence calibration, and automated patient screening PDF generation, MedSight provides radiologists and clinical teams with rapid, interpretability-focused triage capabilities.
 
@@ -104,9 +103,3 @@ Evaluated on the **NIH ChestX-ray14** benchmark dataset ($N=25,596$ test partiti
 ## ⚠️ Legal & Clinical Disclaimer
 
 > **CLINICAL TRIAGE NOTICE:** This software is an AI research prototype intended for preliminary screening, decision-support, and emergency triage prioritization only. It is **NOT** a certified medical diagnostic device and must **NOT** replace diagnostic evaluation by a licensed radiologist or medical professional. All AI outputs, predictions, and heatmaps require independent clinician validation.
-
----
-
-## 📜 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
